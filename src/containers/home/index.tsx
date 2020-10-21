@@ -3,6 +3,7 @@ import { observer, inject } from 'mobx-react';
 
 interface IHomeProps {
   home: any;
+  app: any;
 }
 interface ICarousel {
   id: number;
@@ -13,16 +14,19 @@ interface ICarousel {
   c_type: number;
 }
 @inject('home')
+@inject('app')
 @observer
-class Home extends Component<IHomeProps, any> {
+class Home extends Component<IHomeProps> {
   componentDidMount() {
     this.props.home._getCarouselList();
   }
   render() {
     const { carouselList } = this.props.home;
+    const { count } = this.props.app;
     return (
       <div>
-        this is home page666111
+        <h1>{count}</h1>
+        <button onClick={() => this.props.app.add()}>add</button>
         {carouselList.map((carousel: ICarousel) => {
           return (
             <li key={carousel.cid}>
